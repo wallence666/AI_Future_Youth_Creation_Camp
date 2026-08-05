@@ -1,0 +1,18 @@
+{
+  "name": "axwz-server",
+  "version": "1.0.0",
+  "description": "澳行無阻後端（Express + SQLite）",
+  "private": true,
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^2.0.2"
+  }
+}

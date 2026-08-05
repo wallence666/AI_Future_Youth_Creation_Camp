@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#0A1327">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="澳行無阻">
+<title>澳行無阻 · 澳門實時熱力圖 × 在地美食地圖</title>
+<meta name="description" content="左手看擁擠，右手看好吃：全澳重點景區實時擁擠度三色帶 + 老字號美食 POI，預判未來 1–2 小時人流趨勢，回答何時去最好。">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23E5B04E'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%230A1327'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<div id="map" aria-label="澳門地圖"></div>
+
+<!-- 頂部：品牌 + 搜索 + 篩選 -->
+<header class="topbar">
+  <div class="topbar-row">
+    <div class="brand" id="brandBtn" title="關於澳行無阻">
+      <i></i><span>澳行無阻</span>
+    </div>
+    <div class="searchbox">
+      <svg viewBox="0 0 24 24" class="ic"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/></svg>
+      <input id="searchInput" type="search" placeholder="搜索景點 / 美食 / 招牌菜…" autocomplete="off" enterkeyhint="search">
+      <button id="searchClear" class="search-clear" aria-label="清除" hidden>×</button>
+    </div>
+    <button class="user-btn" id="userBtn" title="登入 / 註冊"><span id="userBtnTxt">登入</span></button>
+  </div>
+  <div class="chips" id="chipRow"><!-- 由 JS 渲染篩選標籤 --></div>
+  <div class="search-results" id="searchResults" hidden></div>
+</header>
+
+<!-- 右側功能按鈕組 -->
+<div class="fab-stack">
+  <button class="fab" id="layerFab" aria-label="圖層切換">
+    <svg viewBox="0 0 24 24"><path d="M11.99 18.54l-7.37-5.73L3 14.07l9 7 9-7-1.63-1.27-7.38 5.74zM12 16l7.36-5.73L21 9l-9-7-9 7 1.63 1.27L12 16z"/></svg>
+  </button>
+  <button class="fab" id="locateFab" aria-label="我的位置">
+    <svg viewBox="0 0 24 24"><path d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4zm8.94 3A8.99 8.99 0 0 0 13 3.06V1h-2v2.06A8.99 8.99 0 0 0 3.06 11H1v2h2.06A8.99 8.99 0 0 0 11 20.94V23h2v-2.06A8.99 8.99 0 0 0 20.94 13H23v-2zM12 19a7 7 0 1 1 7-7 7 7 0 0 1-7 7z"/></svg>
+  </button>
+  <button class="fab" id="infoFab" aria-label="數據說明">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+  </button>
+</div>
+
+<!-- 圖層切換彈層 -->
+<div class="layer-pop" id="layerPop" hidden>
+  <button data-mode="both" class="lp-item"><span class="lp-ic">◈</span>熱力＋美食疊加</button>
+  <button data-mode="heat" class="lp-item"><span class="lp-ic">●</span>純熱力圖</button>
+  <button data-mode="food" class="lp-item"><span class="lp-ic">☰</span>純美食地圖</button>
+</div>
+
+<!-- 左下：圖例 + 天氣 -->
+<div class="legend" id="legend">
+  <div class="legend-heat"><i class="dot g"></i>暢通<i class="dot y"></i>緩行<i class="dot r"></i>擁擠</div>
+  <div class="legend-weather" id="weatherPill" hidden></div>
+</div>
+
+<!-- 全澳概況 pill -->
+<button class="city-pill" id="cityPill">
+  <span class="cp-txt" id="cityPillTxt">數據載入中…</span>
+  <span class="cp-dot" id="eventDot" hidden title="今日有活動"></span>
+</button>
+
+<!-- 底部詳情抽屜 -->
+<section class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-handle" id="drawerHandle"><i></i></div>
+  <button class="drawer-close" id="drawerClose" aria-label="關閉">×</button>
+  <div class="drawer-body" id="drawerBody"></div>
+</section>
+
+<!-- 全澳景區總覽列表 -->
+<section class="sheet" id="sheet" aria-hidden="true">
+  <div class="sheet-head">
+    <div>
+      <h2>全澳景區實時擁擠度</h2>
+      <p class="sheet-sub" id="sheetSub"></p>
+    </div>
+    <button class="drawer-close" id="sheetClose" aria-label="關閉">×</button>
+  </div>
+  <div class="sheet-events" id="sheetEvents" hidden></div>
+  <div class="sheet-list" id="sheetList"></div>
+</section>
+
+<!-- 數據說明彈窗 -->
+<div class="modal-mask" id="infoModal" hidden>
+  <div class="modal">
+    <h2>關於「澳行無阻」</h2>
+    <p class="modal-slogan">左手看擁擠，右手看好吃 —— 避開人潮，發現美味。</p>
+    <h3>CrowdIndex 人流估算模型</h3>
+    <p class="formula">CrowdIndex(s,t) = [ w₁·B(s)·T<sub>c</sub>(s,t) + w₂·Park(s,t) ] × I(t) × W(s,t) × H(t)</p>
+    <ul class="modal-list">
+      <li><b>B(s) 基準熱度</b>：澳門旅遊局 24 區逐時訪客統計（2026-06，3,456 筆真實記錄）</li>
+      <li><b>T<sub>c</sub>(s,t) 分群時段曲線</b>：由真實統計聚類出廟宇廣場／步行街／室內場館／濱海四型</li>
+      <li><b>Park(s,t) 停車場即時訊號</b>：生產環境接 DSAT 開放 API；本演示以時段期望隨機遊走模擬</li>
+      <li><b>W(s,t) 天氣修正</b>：Open-Meteo 實時天氣，室外受阻、室內反向受惠</li>
+      <li><b>H(t) 活動放大</b>：自研爬蟲 events.json，演唱會場館周邊與公眾假期自動放大</li>
+      <li><b>I(t) 口岸權重</b>：PSP 口岸數據暫未公開，預設 1.0</li>
+    </ul>
+    <h3>趨勢預測</h3>
+    <p>即時訊號以 <b>45 分鐘半衰期</b>指數衰減回歸時段期望，合成未來 1–2 小時人流預判，回答「何時去最好」。</p>
+    <p class="modal-note">MVP 演示版 · 灣區 AI 未來青年創造營參賽作品 · 澳鄰智聯團隊（陶錦華 · 陳曉賢）</p>
+    <button class="btn-gold modal-ok" id="infoOk">知道了</button>
+  </div>
+</div>
+
+<!-- 快捷人流問卷條（定位進入景點 150m 自動彈出） -->
+<div class="report-bar" id="reportBar" hidden>
+  <span class="rb-txt" id="reportBarTxt"></span>
+  <span class="rb-opts" id="reportBarOpts">
+    <button class="rb" data-level="1" title="暢通">🟢</button>
+    <button class="rb" data-level="2" title="一般">🟡</button>
+    <button class="rb" data-level="3" title="擁擠">🔴</button>
+  </span>
+  <button class="rb-x" id="reportBarX" aria-label="稍後再說">×</button>
+</div>
+
+<!-- 人流問卷 modal（景點詳情卡手動觸發） -->
+<div class="modal-mask" id="reportModal" hidden>
+  <div class="modal report-modal">
+    <h2>現場人流如何？</h2>
+    <p id="reportSpotName"></p>
+    <div class="report-opts" id="reportOpts">
+      <button class="ro ro-g" data-level="1">🟢 暢通<small>不用排隊</small></button>
+      <button class="ro ro-y" data-level="2">🟡 一般<small>略有等候</small></button>
+      <button class="ro ro-r" data-level="3">🔴 擁擠<small>人頭湧湧</small></button>
+    </div>
+    <p class="modal-note">有效回報 +6 積分 · 同景點 30 分鐘限 1 次</p>
+    <button class="btn-ghost modal-ok" id="reportCancel">取消</button>
+  </div>
+</div>
+
+<!-- 登入 / 註冊 modal -->
+<div class="modal-mask" id="authModal" hidden>
+  <div class="modal">
+    <button class="drawer-close" id="authClose" aria-label="關閉">×</button>
+    <div class="auth-tabs">
+      <button id="authTabLogin" class="on">登入</button>
+      <button id="authTabReg">註冊</button>
+    </div>
+    <div class="auth-field"><label>用戶名</label><input id="authUser" autocomplete="username" placeholder="3–20 位英文、數字或底線"></div>
+    <div class="auth-field"><label>密碼</label><input id="authPass" type="password" autocomplete="current-password" placeholder="至少 6 位"></div>
+    <div class="auth-field" id="roleField" hidden>
+      <label>角色</label>
+      <div class="role-row">
+        <label class="role-opt"><input type="radio" name="authRole" value="visitor" checked> 遊客<small>打卡評論賺積分</small></label>
+        <label class="role-opt"><input type="radio" name="authRole" value="merchant"> 商家<small>申請店舖入駐</small></label>
+      </div>
+    </div>
+    <div class="auth-err" id="authErr" hidden></div>
+    <button class="btn-gold modal-ok" id="authSubmit">登入</button>
+    <p class="modal-note" id="authTip">登入後可打卡、評論、回報人流賺積分</p>
+  </div>
+</div>
+
+<!-- 「我的」面板 -->
+<div class="modal-mask" id="meModal" hidden>
+  <div class="modal">
+    <button class="drawer-close" id="meClose" aria-label="關閉">×</button>
+    <h2 id="meName">—</h2>
+    <p class="me-role-line"><span class="dc-tag" id="meRole">遊客</span></p>
+    <div class="me-stats">
+      <div class="me-stat"><b id="mePoints">0</b><span>積分</span></div>
+      <div class="me-stat"><b id="meCheckins">0</b><span>打卡</span></div>
+      <div class="me-stat"><b id="meComments">0</b><span>評論</span></div>
+    </div>
+    <a class="btn btn-gold me-merchant" id="meMerchant" href="/app/merchant.html" hidden>前往商家中心</a>
+    <h3>我的代金券</h3>
+    <div class="me-coupons" id="meCoupons"><div class="me-empty">載入中…</div></div>
+    <h3>積分流水</h3>
+    <div class="me-log" id="meLog"></div>
+    <button class="btn-ghost modal-ok" id="meLogout">登出</button>
+  </div>
+</div>
+
+<!-- 代金券券面 modal（6 位核銷碼 + 本地 QR，spec F7） -->
+<div class="modal-mask" id="couponModal" hidden>
+  <div class="modal coupon-modal">
+    <button class="drawer-close" id="couponClose" aria-label="關閉">×</button>
+    <h2 id="couponTitle">我的代金券</h2>
+    <p class="coupon-sub" id="couponSub"></p>
+    <div class="coupon-qr" id="couponQr"></div>
+    <div class="coupon-code" id="couponCode">——————</div>
+    <p class="modal-note" id="couponExp"></p>
+    <p class="modal-note">到店出示此 QR 或報出 6 位碼由商家核銷 · 過期未核銷不退積分</p>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="vendor/qr.js"></script>
+<script src="js/core/config.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/core/api.js"></script>
+<script src="js/core/pwa.js"></script>
+<script src="js/map/geo.js"></script>
+<script src="js/model/model.js"></script>
+<script src="js/model/blend.js"></script>
+<script src="js/ui/toast.js"></script>
+<script src="js/map/basemap.js"></script>
+<script src="js/map/layers.js"></script>
+<script src="js/ui/drawer.js"></script>
+<script src="js/ui/filters.js"></script>
+<script src="js/ui/search.js"></script>
+<script src="js/ui/sheet.js"></script>
+<script src="js/features/auth.js"></script>
+<script src="js/features/report.js"></script>
+<script src="js/features/social.js"></script>
+<script src="js/features/coupon.js"></script>
+<script src="js/pages/app.js"></script>
+</body>
+</html>

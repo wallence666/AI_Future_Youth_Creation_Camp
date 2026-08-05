@@ -1,0 +1,19 @@
+{
+  "name": "澳行無阻 · 澳門實時熱力圖",
+  "short_name": "澳行無阻",
+  "description": "左手看擁擠，右手看好吃：全澳重點景區實時擁擠度三色帶 + 老字號美食 POI，預判未來 1–2 小時人流趨勢。",
+  "lang": "zh-Hant",
+  "dir": "ltr",
+  "id": "/app/",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0A1327",
+  "theme_color": "#0A1327",
+  "categories": ["travel", "navigation", "food"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

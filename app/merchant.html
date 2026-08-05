@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="sub-root">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#0A1327">
+<title>商家中心 · 澳行無阻</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='13' fill='%23E5B04E'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%230A1327'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@700;900&family=Noto+Sans+TC:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="vendor/leaflet.css">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body class="sub-page">
+
+<header class="sub-header">
+  <div class="brand"><i></i><span>澳行無阻 · 商家中心</span></div>
+  <div class="sub-actions">
+    <a class="btn btn-ghost btn-sm" href="/app/">← 返回地圖</a>
+    <span class="sub-user" id="userChip" hidden></span>
+    <button class="btn btn-ghost btn-sm" id="logoutBtn" hidden>登出</button>
+  </div>
+</header>
+
+<!-- 登入卡 -->
+<div class="page-wrap" id="loginView">
+  <div class="card login-card">
+    <h2>商家登入</h2>
+    <p class="card-tip">管理店舖資料、發佈限時活動、核銷代金券</p>
+    <div class="auth-field"><label>用戶名</label><input id="loginUser" autocomplete="username"></div>
+    <div class="auth-field"><label>密碼</label><input id="loginPass" type="password" autocomplete="current-password"></div>
+    <div class="auth-err" id="loginErr" hidden></div>
+    <button class="btn-gold modal-ok" id="loginBtn">登入</button>
+    <p class="modal-note">未有商家賬號？請到<a href="/app/">主頁</a>註冊（選「商家」角色）</p>
+  </div>
+</div>
+
+<!-- 主界面 -->
+<div class="page-wrap" id="mainView" hidden>
+
+  <div class="shop-banner" id="shopBanner"></div>
+
+  <!-- 店舖資料 -->
+  <section class="card">
+    <h2>店舖資料</h2>
+    <div class="form-grid">
+      <div class="auth-field"><label>店名（修改已上架店名需重新審核）</label><input id="fName" maxlength="30"></div>
+      <div class="auth-field"><label>菜系分類</label>
+        <select id="fCuisine">
+          <option>葡國菜</option><option>粵菜</option><option>甜品</option><option>茶餐廳</option>
+          <option>小吃</option><option>手信</option><option>咖啡</option><option>其他</option>
+        </select>
+      </div>
+      <div class="auth-field"><label>人均消費（MOP）</label><input id="fPrice" type="number" min="1" max="100000"></div>
+      <div class="auth-field"><label>營業時間</label><input id="fHours" maxlength="60" placeholder="如 10:00–22:00"></div>
+      <div class="auth-field span2"><label>地址</label><input id="fAddr" maxlength="80"></div>
+      <div class="auth-field span2"><label>簡介</label><textarea id="fIntro" maxlength="300" rows="2"></textarea></div>
+    </div>
+    <label class="map-pick-label">地圖選點（點擊地圖放置店舖位置）</label>
+    <div class="map-pick" id="pickMap"></div>
+    <p class="card-tip" id="pickHint">尚未選點</p>
+    <h3>菜單（≤30 條）</h3>
+    <div id="menuRows"></div>
+    <button class="btn btn-ghost btn-sm" id="menuAdd">＋ 新增菜目</button>
+    <div class="card-foot">
+      <span class="form-msg" id="shopMsg"></span>
+      <button class="btn-gold" id="shopSave">保存並提交</button>
+    </div>
+  </section>
+
+  <!-- 店舖照片 -->
+  <section class="card">
+    <h2>店舖照片<small>（門頭/環境/菜品，≤6 張）</small></h2>
+    <div class="photo-grid" id="photoGrid"></div>
+    <label class="btn btn-ghost btn-sm upload-label">
+      📷 上傳照片（每次 ≤3 張，jpg/png/webp ≤5MB）
+      <input type="file" id="photoInput" accept="image/jpeg,image/png,image/webp" multiple hidden>
+    </label>
+  </section>
+
+  <!-- 限時活動（代金券） -->
+  <section class="card">
+    <h2>限時活動（代金券）</h2>
+    <p class="card-tip">發佈與修改活動均需管理員審核；上架後遊客可用積分兌換。</p>
+    <div id="promoList"></div>
+    <button class="btn btn-ghost btn-sm" id="promoNewBtn">＋ 發佈新活動</button>
+
+    <div class="promo-form" id="promoForm" hidden>
+      <h3 id="promoFormTitle">新活動</h3>
+      <div class="form-grid">
+        <div class="auth-field span2"><label>活動標題</label><input id="pTitle" maxlength="30" placeholder="如：滿 100 減 20 代金券"></div>
+        <div class="auth-field span2"><label>說明</label><input id="pDescr" maxlength="120" placeholder="使用條件等（可留空）"></div>
+        <div class="auth-field"><label>所需積分</label><input id="pPoints" type="number" min="1" placeholder="如 50"></div>
+        <div class="auth-field"><label>券面價值（MOP）</label><input id="pValue" type="number" min="1" placeholder="如 20"></div>
+        <div class="auth-field"><label>開始時間</label><input id="pStart" type="datetime-local"></div>
+        <div class="auth-field"><label>結束時間</label><input id="pEnd" type="datetime-local"></div>
+        <div class="auth-field"><label>庫存數量</label><input id="pStock" type="number" min="1" max="10000" placeholder="如 100"></div>
+      </div>
+      <div class="card-foot">
+        <span class="form-msg" id="promoMsg"></span>
+        <button class="btn-ghost" id="promoCancel">取消</button>
+        <button class="btn-gold" id="promoSave">提交審核</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 核銷 -->
+  <section class="card">
+    <h2>代金券核銷</h2>
+    <p class="card-tip">遊客出示券面 QR / 6 位碼 → 在此輸入核銷</p>
+    <div class="redeem-row">
+      <input id="redeemCode" maxlength="6" placeholder="6 位核銷碼" autocomplete="off">
+      <button class="btn-gold" id="redeemBtn">核銷</button>
+    </div>
+    <div class="redeem-result" id="redeemResult" hidden></div>
+  </section>
+
+  <p class="page-foot">澳行無阻 · 灣區 AI 未來青年創造營參賽作品</p>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="vendor/leaflet.js"></script>
+<script src="js/core/config.js"></script>
+<script src="js/core/store.js"></script>
+<script src="js/core/api.js"></script>
+<script src="js/core/pwa.js"></script>
+<script src="js/map/geo.js"></script>
+<script src="js/ui/toast.js"></script>
+<script src="js/pages/merchant.js"></script>
+</body>
+</html>
