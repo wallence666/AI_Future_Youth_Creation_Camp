@@ -98,7 +98,7 @@
   /* ================= 啟動 ================= */
   async function init() {
     if (App.pwa) { App.pwa.register(); App.pwa.maybeShowIosHint(); }
-    App.basemap.init();
+    await App.basemap.init();   // 需等底圖源探測完成、S.useGcj 確定，才能開始建熱力圖/店鋪標記
     bindUI();
     App.auth.init();
     App.report.init();
