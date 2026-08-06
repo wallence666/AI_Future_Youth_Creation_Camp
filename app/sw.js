@@ -8,7 +8,7 @@
  */
 'use strict';
 
-const VERSION = 'v1.0.0-20260806';
+const VERSION = 'v1.0.3-20260806d';
 const STATIC_CACHE = 'axwz-static-' + VERSION;
 const DATA_CACHE = 'axwz-data-' + VERSION;
 

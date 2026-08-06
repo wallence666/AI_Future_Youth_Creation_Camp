@@ -20,7 +20,13 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 XLSX = os.path.join(ROOT, "data", "dst_visitor_01_stats.xlsx")
 OUT = os.path.join(ROOT, "app", "data", "model.json")
 
-# 25 區 -> 4 類時段曲線分群（依據各區主要場景屬性）
+# 25 區 -> 5 類時段曲線分群（依據各區主要場景屬性）
+# v1.7：路氹填海區（澳門威尼斯人/銀河/倫敦人所在地）獨立為 resort_247，不再與其他室內場館
+# 混合計算——三大博企度假村是真正的 24 小時全天候營運場館，其真實 dst_visitor 數據（谷值/峰值
+# 比例約 0.68）遠高於「科學館」「旅遊塔」這類有固定開放時間的室內場館，混在同一群組計算會讓
+# 曲線形狀被互相稀釋失真；獨立分群後兩邊都能各自忠實反映真實數據，且色帶正規化基準（見
+# model.js computeGroupBounds()）改為按群組獨立計算，從根源解決度假村類景點「長期偏紅、看不出
+# 時段差異」的問題，見 docs/01 版本修訂摘要 v1.7。
 DISTRICT_GROUP = {
     "沙梨頭及大三巴區": "temple_plaza",   # 大三巴、廟宇廣場
     "中區": "temple_plaza",               # 議事亭前地廣場
@@ -29,8 +35,8 @@ DISTRICT_GROUP = {
     "荷蘭園區": "pedestrian",             # 塔石/荷蘭園商業街
     "新橋區": "pedestrian",               # 三盞燈民生商業
     "高士德及雅廉訪區": "pedestrian",
-    "路氹填海區": "indoor",               # 金光大道度假村（室內場館）
-    "氹仔中心區": "indoor",
+    "路氹填海區": "resort_247",           # 金光大道三大博企度假村（24 小時全天候營運，獨立分群）
+    "氹仔中心區": "indoor",               # 其餘室內場館型（有固定開放時間）
     "外港及南灣湖新填海區": "indoor",     # 外港碼頭/漁人碼頭綜合體
     "新口岸區": "indoor",                 # 皇朝/新口岸酒店娛樂區
     "路環區": "waterfront",               # 黑沙海灘、路環濱海
@@ -43,6 +49,7 @@ GROUP_LABEL = {
     "pedestrian": "商業步行街型",
     "indoor": "室內場館型",
     "waterfront": "濱海戶外型",
+    "resort_247": "度假村全天型",
 }
 CURVE_MAX = 1.2  # 文檔規定 T_c 值域 [0, 1.2]
 
@@ -82,7 +89,7 @@ def main():
         for d in profiles
     }
 
-    # T_c(s,t)：同群各區曲線先各自歸一化再取均值，最後縮放到 [0, 1.2]
+    # T_c(s,t)：同群各區曲線先各自歸一化再取均值，最後縮放到 [0, 1.2]（峰值對齊 CURVE_MAX）
     grouped = defaultdict(list)
     for d, prof in profiles.items():
         g = DISTRICT_GROUP.get(d)
@@ -98,6 +105,17 @@ def main():
             "label": GROUP_LABEL[g],
             "values": [round(x / peak * CURVE_MAX, 4) for x in avg],
         }
+
+    # v1.7：不再對曲線形狀做人工振幅校正（v1.6 一度用「拉齊谷值/峰值比例」的方式修正 indoor
+    # 群組，事後證實治標不治本——即使曲線形狀壓平，度假村類景點的 B(s) 基準熱度仍遠高於其他
+    # 景點，套用「全部 18 個景點共用一組正規化色帶基準」時依然會被判定長期偏紅）。
+    # 真正的根因是「不同類型景點的絕對人流量綱本來就不同，硬要共用同一把色帶尺規」，故改為：
+    #   1) 路氹填海區（三大博企度假村）獨立分群為 resort_247，忠實呈現其真實 24 小時曲線
+    #      （不再與科學館、旅遊塔等有固定開放時間的室內場館混合計算，見上方 DISTRICT_GROUP 註解）；
+    #   2) app/js/model/model.js 的色帶正規化基準改為「按 T_c 分群各自獨立計算」
+    #      （computeGroupBounds()，非全體 18 景點共用一組 min/max），
+    #      每個分群色帶都反映「該類型景點自己一天內的相對忙閒」，不再被其他類型的量綱壓縮。
+    # 曲線本身維持忠於真實 dst_visitor 數據，不做人工形狀調整，見 docs/01 版本修訂摘要 v1.7。
 
     out = {
         "meta": {

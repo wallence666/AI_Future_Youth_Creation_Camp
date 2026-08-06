@@ -15,7 +15,7 @@
     });
     map.attributionControl.setPrefix(false);
     S.map = map;
-    setTiles('geoq');
+    pickTiles();   // 依實際可達性挑選底圖源，見 pickTiles() 註解
     map.fitBounds(L.latLngBounds(App.config.MACAU_BOUNDS[0], App.config.MACAU_BOUNDS[1]));
     map.on('click', () => {
       App.layers.hideLayerPop();
@@ -24,15 +24,42 @@
     map.on('zoomend', () => App.layers.updateLabels());
   }
 
+  /**
+   * 底圖源快速可達性探測（解決「地圖加載很慢」）：
+   * 舊版直接掛上 Geoq（中國大陸服務）作為預設底圖，只有累積超過 8 次瓦片載入失敗才降級 Carto——
+   * 但每次瓦片失敗要等瀏覽器自己的連線逾時（可能長達數十秒），且一個視窗會同時發出十幾個瓦片請求，
+   * 在 Geoq 不可達的網絡環境下（例如非中國大陸網段、公司/校園防火牆、VPN），會呈現「地圖長時間空白
+   * 或極慢才跳出」的體驗，而不是乾脆地切換。
+   * 改為：先用一個短逾時（1.5 秒）的探測請求試 Geoq 是否可達，可達才用；探測逾時或失敗，直接改用
+   * Carto（全球 CDN，可達性較穩定）。探測跑在使用者自己的瀏覽器/網絡環境下，比在開發環境猜測準確。
+   */
+  function probeReachable(kind, timeoutMs) {
+    const cfg = App.config.TILES[kind];
+    const sub = (cfg.subdomains || 'a')[0];
+    const url = cfg.url.replace('{s}', sub).replace('{z}', '11').replace('{x}', '1706').replace('{y}', '843').replace('{r}', '');
+    return new Promise(resolve => {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => { ctrl.abort(); resolve(false); }, timeoutMs);
+      fetch(url, { signal: ctrl.signal, mode: 'no-cors', cache: 'no-store' })
+        .then(() => { clearTimeout(timer); resolve(true); })
+        .catch(() => { clearTimeout(timer); resolve(false); });
+    });
+  }
+  async function pickTiles() {
+    const ok = await probeReachable('geoq', 1500);
+    setTiles(ok ? 'geoq' : 'carto');
+  }
+
   function setTiles(kind) {
     const cfg = App.config.TILES[kind];
     if (S.tileLayer) S.map.removeLayer(S.tileLayer);
     S.useGcj = cfg.gcj;
+    S.tileErrs = 0;
     S.tileLayer = L.tileLayer(cfg.url, {
       maxZoom: 18, subdomains: cfg.subdomains || 'abc', attribution: cfg.attr,
     });
     S.tileLayer.on('tileerror', () => {
-      if (kind === 'geoq' && ++S.tileErrs > 8) {  // Geoq 不可達 → 降級 Carto(WGS-84)
+      if (kind === 'geoq' && ++S.tileErrs > 4) {  // Geoq 中途失聯 → 降級 Carto(WGS-84)
         setTiles('carto');
         rebuildOverlays();
         App.toast('已切換備用地圖源');

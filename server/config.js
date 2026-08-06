@@ -15,6 +15,11 @@ module.exports = {
   REPORT_COOLDOWN_MIN: 30,      // 人流回報同景點限頻
   U_HALF_LIFE_MIN: 15,          // U 因子半衰期
   U_WINDOW_MIN: 30,             // U 因子統計窗口
+  // DSAT 停車場即時空位率（Park(s,t)，docs/01 §3.1）
+  DSAT_APPCODE: process.env.DSAT_APPCODE || '09d43a591fba407fb862412970667de4',
+  DSAT_URL: 'https://dsat.apigateway.data.gov.mo/car_park_maintance',
+  DSAT_POLL_MS: 30000,                       // 與前端 30 秒熱力刷新同頻，非官方 10 秒上限
+  PARKING_MAX_PATH: path.join(__dirname, 'data', 'parking_max.json'),
   // 積分（對應 spec F5）
   POINTS: {
     register: 20,

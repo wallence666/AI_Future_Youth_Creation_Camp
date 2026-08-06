@@ -15,6 +15,9 @@ app.use('/api/spots', require('./routes/reports'));   // POST /api/spots/:id/rep
 app.use('/api/checkins', require('./routes/checkins'));
 app.use('/api/comments', require('./routes/comments'));
 app.use('/api/crowd', require('./routes/crowd'));
+app.use('/api/holidays', require('./routes/holidays'));
+app.use('/api/parking', require('./routes/parking'));
+require('./services/parking').start();   // 背景輪詢 DSAT 停車場數據（docs/01 §3.1 Park(s,t)）
 app.use('/api/targets', require('./routes/targets'));
 app.use('/api/shops', require('./routes/shops'));
 app.use('/api/promos', require('./routes/promos'));

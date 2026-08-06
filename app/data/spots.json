@@ -1,26 +1,26 @@
 {
  "meta": {
-  "note": "澳門重點景區清單。座標為 WGS-84；district 對應 model.json 的分區（B(s) 來源）；group 對應四類時段曲線 T_c；weight 為區內相對熱度權重；radius 為熱力圓半徑（米）；indoor 用於天氣係數 W(s,t) 方向。",
+  "note": "澳門重點景區清單。座標為 WGS-84；district 對應 model.json 的分區（B(s) 來源）；group 對應四類時段曲線 T_c；weight 為區內相對熱度權重；radius 為熱力圓半徑（米）；indoor 用於天氣係數 W(s,t) 方向。parkingId 為對應 DSAT 停車場 ID（見 docs/01 §3.1 Park(s,t)），依名稱/地理位置人工比對，僅 7/18 景點有高信心匹配（多數老城區景點是步行區、無鄰近專屬停車場，三大博企度假村停車場為私人管理未納入 DSAT 公開數據），其餘景點 Park(s,t) 仍用模擬訊號。",
   "updated": "2026-08"
  },
  "spots": [
   {"id":"ruins-st-paul","name":"大三巴牌坊","district":"沙梨頭及大三巴區","group":"temple_plaza","indoor":false,"lat":22.19746,"lng":113.54099,"radius":260,"weight":1.0,"hours":"全天開放（牌坊）；天主教藝術博物館 09:00–18:00","ticket":"免費","desc":"澳門地標，聖保祿教堂前壁遺址，世界文化遗产。"},
-  {"id":"senado-square","name":"議事亭前地","district":"中區","group":"temple_plaza","indoor":false,"lat":22.19361,"lng":113.53961,"radius":240,"weight":0.98,"hours":"全天開放","ticket":"免費","desc":"波浪紋碎石廣場，澳門歷史城區核心。"},
+  {"id":"senado-square","name":"議事亭前地","district":"中區","group":"temple_plaza","indoor":false,"lat":22.19361,"lng":113.53961,"radius":240,"weight":0.98,"hours":"全天開放","ticket":"免費","desc":"波浪紋碎石廣場，澳門歷史城區核心。","parkingId":"6002","parkingName":"栢寧停車場（議事亭前地）"},
   {"id":"st-dominic","name":"玫瑰堂","district":"中區","group":"temple_plaza","indoor":false,"lat":22.19427,"lng":113.54008,"radius":170,"weight":0.8,"hours":"10:00–18:00","ticket":"免費","desc":"鵝黃色巴洛克教堂，板樟堂前地人流密集。"},
   {"id":"rua-felicidade","name":"福隆新街","district":"中區","group":"pedestrian","indoor":false,"lat":22.1929,"lng":113.53865,"radius":180,"weight":0.75,"hours":"全天開放（商戶約 11:00–22:00）","ticket":"免費","desc":"百年紅窗門建築食街，老字號雲集。"},
-  {"id":"ama-temple","name":"媽閣廟","district":"下環區","group":"temple_plaza","indoor":false,"lat":22.18611,"lng":113.53101,"radius":200,"weight":0.85,"hours":"07:00–18:00","ticket":"免費","desc":"澳門最古老廟宇之一，香火鼎盛。"},
+  {"id":"ama-temple","name":"媽閣廟","district":"下環區","group":"temple_plaza","indoor":false,"lat":22.18611,"lng":113.53101,"radius":200,"weight":0.85,"hours":"07:00–18:00","ticket":"免費","desc":"澳門最古老廟宇之一，香火鼎盛。","parkingId":"7075","parkingName":"媽閣交通樞紐停車場"},
   {"id":"mount-fortress","name":"大炮台·澳門博物館","district":"沙梨頭及大三巴區","group":"temple_plaza","indoor":false,"lat":22.19713,"lng":113.54247,"radius":200,"weight":0.8,"hours":"炮台全天；博物館 10:00–18:00（週一休）","ticket":"炮台免費；博物館 MOP15","desc":"山頂炮台俯瞰半島，毗鄰大三巴。"},
   {"id":"guia-lighthouse","name":"東望洋燈塔","district":"東望洋區(松山區)","group":"waterfront","indoor":false,"lat":22.19664,"lng":113.54979,"radius":220,"weight":0.7,"hours":"09:00–18:00","ticket":"免費","desc":"中國海岸第一座現代燈塔，松山步行徑。"},
-  {"id":"macau-tower","name":"澳門旅遊塔","district":"南西灣及主教山區","group":"indoor","indoor":true,"lat":22.17976,"lng":113.53677,"radius":230,"weight":0.75,"hours":"10:00–21:00（週末 09:00 起）","ticket":"觀光層 MOP208 起","desc":"338 米地標塔，笨豬跳與高空下午茶。"},
+  {"id":"macau-tower","name":"澳門旅遊塔","district":"南西灣及主教山區","group":"indoor","indoor":true,"lat":22.17976,"lng":113.53677,"radius":230,"weight":0.75,"hours":"10:00–21:00（週末 09:00 起）","ticket":"觀光層 MOP208 起","desc":"338 米地標塔，笨豬跳與高空下午茶。","parkingId":"7074","parkingName":"旅遊塔停車場"},
   {"id":"fishermans-wharf","name":"澳門漁人碼頭","district":"外港及南灣湖新填海區","group":"waterfront","indoor":false,"lat":22.18967,"lng":113.55706,"radius":280,"weight":0.7,"hours":"全天開放","ticket":"免費","desc":"仿古羅馬競技場與歐陸風情濱海商區。"},
-  {"id":"science-center","name":"澳門科學館","district":"新口岸區","group":"indoor","indoor":true,"lat":22.18631,"lng":113.55642,"radius":200,"weight":0.6,"hours":"10:00–18:00（週四休）","ticket":"展覽中心 MOP25","desc":"貝聿銘設計銀色螺旋，親子熱門室內場館。"},
-  {"id":"rua-do-cunha","name":"官也街","district":"氹仔舊城及馬場區","group":"pedestrian","indoor":false,"lat":22.15372,"lng":113.55636,"radius":220,"weight":0.95,"hours":"全天開放（商戶約 10:00–21:00）","ticket":"免費","desc":"氹仔手信美食步行街，遊客必到。"},
-  {"id":"taipa-houses","name":"龍環葡韻","district":"氹仔舊城及馬場區","group":"pedestrian","indoor":false,"lat":22.15346,"lng":113.55803,"radius":200,"weight":0.7,"hours":"全天開放；住宅式博物館 10:00–19:00（週一休）","ticket":"免費（博物館 MOP5）","desc":"薄荷綠葡式別墅群，濕地荷花池畔。"},
+  {"id":"science-center","name":"澳門科學館","district":"新口岸區","group":"indoor","indoor":true,"lat":22.18631,"lng":113.55642,"radius":200,"weight":0.6,"hours":"10:00–18:00（週四休）","ticket":"展覽中心 MOP25","desc":"貝聿銘設計銀色螺旋，親子熱門室內場館。","parkingId":"6010","parkingName":"科學館停車場"},
+  {"id":"rua-do-cunha","name":"官也街","district":"氹仔舊城及馬場區","group":"pedestrian","indoor":false,"lat":22.15372,"lng":113.55636,"radius":220,"weight":0.95,"hours":"全天開放（商戶約 10:00–21:00）","ticket":"免費","desc":"氹仔手信美食步行街，遊客必到。","parkingId":"6018","parkingName":"氹仔中央公園停車場"},
+  {"id":"taipa-houses","name":"龍環葡韻","district":"氹仔舊城及馬場區","group":"pedestrian","indoor":false,"lat":22.15346,"lng":113.55803,"radius":200,"weight":0.7,"hours":"全天開放；住宅式博物館 10:00–19:00（週一休）","ticket":"免費（博物館 MOP5）","desc":"薄荷綠葡式別墅群，濕地荷花池畔。","parkingId":"6018","parkingName":"氹仔中央公園停車場"},
   {"id":"rotunda-carlos","name":"三盞燈圓形地","district":"新橋區","group":"pedestrian","indoor":false,"lat":22.19827,"lng":113.5452,"radius":180,"weight":0.6,"hours":"全天開放","ticket":"免費","desc":"本地人氣民生區，東南亞美食聚集地。"},
-  {"id":"venetian","name":"澳門威尼斯人","district":"路氹填海區","group":"indoor","indoor":true,"lat":22.14798,"lng":113.56039,"radius":340,"weight":0.9,"hours":"全天（購物中心 10:00–23:00）","ticket":"免費進入","desc":"大運河購物中心與威尼斯人綜藝館。"},
-  {"id":"galaxy","name":"澳門銀河","district":"路氹填海區","group":"indoor","indoor":true,"lat":22.1493,"lng":113.55303,"radius":320,"weight":0.85,"hours":"全天","ticket":"免費進入","desc":"銀河綜藝館所在地，演唱會散場人流集中。"},
-  {"id":"londoner","name":"澳門倫敦人","district":"路氹填海區","group":"indoor","indoor":true,"lat":22.14844,"lng":113.56493,"radius":320,"weight":0.8,"hours":"全天","ticket":"免費進入","desc":"大笨鐘外牆打卡點，倫敦人綜藝館。"},
+  {"id":"venetian","name":"澳門威尼斯人","district":"路氹填海區","group":"resort_247","indoor":true,"lat":22.14798,"lng":113.56039,"radius":340,"weight":0.9,"hours":"全天（購物中心 10:00–23:00）","ticket":"免費進入","desc":"大運河購物中心與威尼斯人綜藝館。"},
+  {"id":"galaxy","name":"澳門銀河","district":"路氹填海區","group":"resort_247","indoor":true,"lat":22.1493,"lng":113.55303,"radius":320,"weight":0.85,"hours":"全天","ticket":"免費進入","desc":"銀河綜藝館所在地，演唱會散場人流集中。"},
+  {"id":"londoner","name":"澳門倫敦人","district":"路氹填海區","group":"resort_247","indoor":true,"lat":22.14844,"lng":113.56493,"radius":320,"weight":0.8,"hours":"全天","ticket":"免費進入","desc":"大笨鐘外牆打卡點，倫敦人綜藝館。"},
   {"id":"hac-sa-beach","name":"黑沙海灘","district":"路環區","group":"waterfront","indoor":false,"lat":22.12157,"lng":113.57847,"radius":300,"weight":0.65,"hours":"全天開放","ticket":"免費","desc":"澳門最大天然海灘，特色黑色海沙。"},
-  {"id":"coloane-village","name":"路環市區","district":"路環區","group":"waterfront","indoor":false,"lat":22.11642,"lng":113.55144,"radius":220,"weight":0.55,"hours":"全天開放","ticket":"免費","desc":"聖方濟各教堂與臨海老街，慢活小漁村。"}
+  {"id":"coloane-village","name":"路環市區","district":"路環區","group":"waterfront","indoor":false,"lat":22.11642,"lng":113.55144,"radius":220,"weight":0.55,"hours":"全天開放","ticket":"免費","desc":"聖方濟各教堂與臨海老街，慢活小漁村。","parkingId":"7089","parkingName":"路環打纜街公共停車場"}
  ]
 }

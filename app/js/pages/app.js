@@ -51,9 +51,27 @@
     } catch (e) { /* 離線時靜默降級，W=1 */ }
   }
 
-  /* ---------- 30 秒熱力刷新（先拉 U 再重算） ---------- */
+  /* ================= 假期日曆（H 係數 4 檔分級，docs/01 §3.1） ================= */
+  async function fetchHolidays() {
+    try {
+      const year = CrowdEngine.macauNow().getUTCFullYear();
+      const map = await App.api.get('/api/holidays/' + year);   // 後端代理 api.jiejiariapi.com（避開瀏覽器 CORS 限制）
+      CrowdEngine.setHolidays(map);
+      App.layers.refreshHeat();
+    } catch (e) { /* 離線/服務異常時靜默降級，H(t) 退回「一般週末/平日」判斷 */ }
+  }
+
+  /* ================= 停車場即時空位率（Park(s,t) 真實訊號，docs/01 §3.1） ================= */
+  async function fetchParking() {
+    try {
+      const j = await App.api.get('/api/parking/live');
+      CrowdEngine.setParking(j.carparks || {});
+    } catch (e) { /* 離線/服務異常時靜默降級，對應景點退回模擬訊號 */ }
+  }
+
+  /* ---------- 30 秒熱力刷新（先拉 U + 停車場，再重算） ---------- */
   async function refreshCycle() {
-    await App.blend.refresh();
+    await Promise.all([App.blend.refresh(), fetchParking()]);
     App.layers.refreshHeat();
   }
 
@@ -100,10 +118,11 @@
       App.layers.buildFood();
       App.filters.renderChips();
       App.layers.refreshHeat();
-      App.blend.refresh().then(() => App.layers.refreshHeat());  // 首次 U 因子
-      setInterval(refreshCycle, 30000);          // 30 秒即時訊號刷新（含 U）
+      Promise.all([App.blend.refresh(), fetchParking()]).then(() => App.layers.refreshHeat());  // 首次 U + 停車場
+      setInterval(refreshCycle, 30000);          // 30 秒即時訊號刷新（含 U、停車場）
       fetchWeather();
       setInterval(fetchWeather, 600000);        // 10 分鐘天氣刷新
+      fetchHolidays();                          // 假期日曆全年一次性快取，無需輪詢
       if (!sessionStorage.getItem('axwz_seen')) {  // 首次進入展示模型說明
         App.$('infoModal').hidden = false;
         sessionStorage.setItem('axwz_seen', '1');
