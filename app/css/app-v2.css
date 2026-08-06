@@ -437,3 +437,107 @@ input{font-family:inherit}
 .ios-hint .ih-text b{color:var(--background)}
 .ios-hint .ih-close{flex:none;width:28px;height:28px;border-radius:50%;border:1px solid rgba(252,253,253,.3);
   color:var(--background);font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center}
+
+/* ========== 子頁面共用（商家中心 / 管理後台）—— 與遊客端同一套 DESIGN.md token ========== */
+html.sub-root,html.sub-root body.sub-page{height:auto;min-height:100%;overflow:auto}
+body.sub-page{background:var(--background)}
+.sub-header{position:sticky;top:0;z-index:30;display:flex;align-items:center;justify-content:space-between;
+  gap:10px;background:var(--background);padding:calc(10px + var(--sat)) 14px 10px;
+  border-bottom:1px solid var(--border-subtle);box-shadow:var(--shadow)}
+.sub-header .brand{box-shadow:none;padding:6px 0;border:0}
+.sub-actions{display:flex;align-items:center;gap:8px}
+.sub-user{font-size:.78rem;color:var(--accent-text);font-weight:700}
+.page-wrap{max-width:720px;margin:0 auto;padding:16px 14px calc(30px + var(--sab))}
+.page-foot{text-align:center;font-size:.68rem;color:var(--text-secondary);margin-top:22px}
+.card{background:var(--background);border:1px solid var(--border-subtle);border-radius:18px;padding:16px;margin-bottom:14px;
+  box-shadow:var(--shadow)}
+.card h2{font-weight:700;font-size:1.05rem}
+.card h2 small{font-weight:400;font-size:.7rem;color:var(--text-secondary)}
+.card h3{font-size:.86rem;margin:14px 0 8px}
+.card-tip{font-size:.72rem;color:var(--text-secondary);margin:-4px 0 10px}
+.card-tip a{color:var(--accent-text);font-weight:700}
+.card-foot{display:flex;align-items:center;justify-content:flex-end;gap:10px;margin-top:14px}
+.form-msg{font-size:.74rem;color:var(--red-strong);margin-right:auto}
+.login-card{max-width:380px;margin:8vh auto 0}
+.login-card h2{margin-bottom:2px}
+.btn-sm{font-size:.76rem;padding:6px 12px;border-radius:9px}
+.sub-page .auth-field{margin-bottom:10px}
+.auth-field label{display:block;font-size:.72rem;color:var(--text-secondary);margin-bottom:4px}
+.auth-field input,.auth-field select,.auth-field textarea{width:100%;border:1px solid var(--border-subtle);border-radius:10px;
+  padding:9px 12px;font-size:.86rem;color:var(--text);background:var(--background);outline:0;font-family:inherit}
+.auth-field input:focus,.auth-field select:focus,.auth-field textarea:focus{border-color:var(--accent-solid)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 12px}
+.form-grid .span2{grid-column:span 2}
+@media (max-width:520px){.form-grid{grid-template-columns:1fr}.form-grid .span2{grid-column:span 1}}
+
+/* 商家中心：狀態橫幅（淡底＋深字，同熱力帶徽章的對比修正邏輯） */
+.shop-banner{border-radius:14px;padding:12px 16px;font-size:.82rem;font-weight:500;margin-bottom:14px;border:1px solid}
+.shop-banner.st-none{background:var(--surface);border-color:var(--border-subtle);color:var(--text-secondary)}
+.shop-banner.st-pending{background:var(--yellow-tint);border-color:var(--yellow);color:var(--yellow-strong)}
+.shop-banner.st-approved{background:var(--green-tint);border-color:var(--green);color:var(--green-strong)}
+.shop-banner.st-rejected,.shop-banner.st-takedown{background:var(--red-tint);border-color:var(--red);color:var(--red-strong)}
+
+/* 商家中心：地圖選點 */
+.map-pick-label{display:block;font-size:.72rem;color:var(--text-secondary);margin:12px 0 6px}
+.map-pick{height:220px;border-radius:14px;border:1px solid var(--border-subtle);z-index:1}
+.pick-marker{width:20px;height:20px;border-radius:50%;background:var(--accent-solid);
+  border:3px solid var(--background);box-shadow:0 0 0 4px var(--accent-3),var(--shadow)}
+
+/* 商家中心：菜單編輯 */
+.menu-ed{display:flex;gap:8px;margin-bottom:8px}
+.mi-name{flex:1;border:1px solid var(--border-subtle);border-radius:9px;padding:8px 10px;font-size:.84rem;outline:0}
+.mi-price{width:90px;border:1px solid var(--border-subtle);border-radius:9px;padding:8px 10px;font-size:.84rem;outline:0}
+.mi-del{width:32px;border:1px solid var(--red);color:var(--red-strong);border-radius:9px;font-size:1rem}
+
+/* 商家中心：照片 */
+.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.ph-item{position:relative;aspect-ratio:4/3}
+.ph-item img{width:100%;height:100%;object-fit:cover;border-radius:10px;border:1px solid var(--border-subtle)}
+.ph-del{position:absolute;top:-6px;right:-6px;width:22px;height:22px;border-radius:50%;background:var(--red);
+  color:#fff;font-size:.8rem;line-height:1}
+.upload-label{display:inline-block}
+
+/* 商家中心：活動列表 */
+.promo-item{display:flex;gap:10px;align-items:center;border:1px solid var(--border-subtle);border-radius:13px;
+  padding:11px 13px;margin-bottom:9px;background:var(--background)}
+.pi-main{flex:1;min-width:0}
+.pi-main b{font-size:.88rem}
+.pi-meta{display:flex;flex-wrap:wrap;gap:4px 12px;font-size:.72rem;color:var(--text-secondary);margin-top:3px}
+.pi-time{font-size:.68rem;color:var(--text-secondary);margin-top:2px}
+.pi-ops{display:flex;flex-direction:column;gap:6px;flex:none}
+.promo-status{font-weight:700;padding:1px 8px;border-radius:99px}
+.ps-pending{background:var(--yellow-tint);color:var(--yellow-strong)}
+.ps-approved{background:var(--green-tint);color:var(--green-strong)}
+.ps-rejected,.ps-offline{background:var(--surface);color:var(--text-secondary)}
+.promo-form{border-top:1px dashed var(--border-subtle);margin-top:12px;padding-top:12px}
+
+/* 商家中心：核銷 */
+.redeem-row{display:flex;gap:8px}
+.redeem-row input{flex:1;border:1px solid var(--border-subtle);border-radius:11px;padding:11px 14px;font-size:1.05rem;
+  letter-spacing:.25em;text-transform:uppercase;outline:0;font-weight:700;text-align:center}
+.redeem-result{margin-top:12px;border-radius:12px;padding:12px 14px;font-size:.84rem}
+.redeem-result.ok{background:var(--green-tint);border:1px solid var(--green);color:var(--green-strong)}
+.redeem-result.err{background:var(--red-tint);border:1px solid var(--red);color:var(--red-strong)}
+
+/* 管理後台 */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-bottom:14px}
+@media (max-width:620px){.stats-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-card{background:var(--background);border:1px solid var(--border-subtle);border-radius:14px;padding:12px;text-align:center}
+.stat-card b{display:block;font-size:1.5rem;font-weight:700;color:var(--text)}
+.stat-card span{font-size:.7rem;color:var(--text-secondary)}
+.stat-card small{display:block;font-size:.62rem;color:var(--text-secondary)}
+.adm-tabs{display:flex;gap:6px;margin-bottom:12px;overflow-x:auto;scrollbar-width:none}
+.adm-tabs::-webkit-scrollbar{display:none}
+.adm-tabs button{flex:none;font-size:.8rem;padding:8px 14px;border-radius:99px;border:1px solid var(--border-subtle);
+  background:var(--background);color:var(--text)}
+.adm-tabs button.on{background:var(--accent-solid);color:#fff;border-color:var(--accent-solid)}
+.tab-badge{background:var(--red);color:#fff;font-size:.64rem;border-radius:99px;padding:1px 7px;margin-left:3px}
+.adm-card{margin-bottom:11px}
+.adm-head{display:flex;align-items:center;flex-wrap:wrap;gap:8px;margin-bottom:6px}
+.adm-head b{font-size:.92rem}
+.adm-user{font-size:.68rem;color:var(--text-secondary)}
+.adm-body p{font-size:.82rem;margin-bottom:6px;white-space:pre-wrap;word-break:break-word}
+.adm-meta{display:flex;flex-wrap:wrap;gap:3px 14px;font-size:.72rem;color:var(--text-secondary)}
+.adm-menu{margin-top:8px}
+.adm-ops{display:flex;gap:8px;margin-top:12px;justify-content:flex-end}
+.adm-deleted{opacity:.55}

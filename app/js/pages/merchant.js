@@ -155,23 +155,31 @@
   }
 
   /* ================= 地圖選點 ================= */
+  // 用 Carto（WGS-84，見 docs/01 底圖可達性問題）而非 Geoq，避免中國大陸底圖在部分網絡環境
+  // 不可達導致地圖空白；useGcj 對應設為 false，否則座標系不符會讓標記位置偏移（同 basemap.js 的教訓）。
   function initPickMap() {
-    const cfg = App.config.TILES.geoq;
-    App.state.useGcj = true;
+    const cfg = App.config.TILES.carto;
+    App.state.useGcj = false;
     S.map = L.map('pickMap', { attributionControl: false, zoomControl: true })
       .setView(App.ll(22.1936, 113.5461), 14);
-    L.tileLayer(cfg.url, { maxZoom: 18 }).addTo(S.map);
+    L.tileLayer(cfg.url, { maxZoom: 18, subdomains: cfg.subdomains || 'abcd' }).addTo(S.map);
     S.map.on('click', e => {
       const [wLng, wLat] = Geo.gcj02ToWgs84(e.latlng.lng, e.latlng.lat);
       S.pick = { lat: +wLat.toFixed(6), lng: +wLng.toFixed(6) };
       updatePickUI();
     });
   }
+  // 自訂 divIcon（accent 藍圓點）取代 Leaflet 預設圖釘——專案沒有 vendor 預設圖示圖片
+  // （marker-icon.png/marker-shadow.png 404），且自訂圖示才符合 DESIGN.md 的視覺語言。
+  const PICK_ICON = L.divIcon({
+    className: '', iconSize: [20, 20], iconAnchor: [10, 10],
+    html: '<div class="pick-marker"></div>',
+  });
   function updatePickUI() {
     if (S.pick && S.map) {
       const ll = App.ll(S.pick.lat, S.pick.lng);
       if (!S.marker) {
-        S.marker = L.marker(ll).addTo(S.map);
+        S.marker = L.marker(ll, { icon: PICK_ICON }).addTo(S.map);
       } else S.marker.setLatLng(ll);
       S.map.setView(ll, Math.max(S.map.getZoom(), 15));
       $('pickHint').textContent = `已選點：${S.pick.lat}, ${S.pick.lng}`;
