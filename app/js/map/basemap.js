@@ -6,7 +6,7 @@
   const App = window.App = window.App || {};
   const S = App.state;
 
-  function init() {
+  async function init() {
     const map = L.map('map', {
       zoomControl: false, attributionControl: true,
       minZoom: 11, maxZoom: 18,
@@ -15,7 +15,11 @@
     });
     map.attributionControl.setPrefix(false);
     S.map = map;
-    pickTiles();   // 依實際可達性挑選底圖源，見 pickTiles() 註解
+    // 必須等探測完成、S.useGcj 確定後才能繼續——buildHeat()/buildFood() 會用 App.ll() 依 S.useGcj
+    // 決定座標要不要轉 GCJ-02，若不等待，資料載入（本地 JSON，通常 <100ms）很可能比探測（至多 1.5 秒）
+    // 先跑完，屆時 S.useGcj 還停在 store.js 的預設值 true，等於不管最終選中哪個底圖源都硬套 GCJ-02
+    // 轉換，跟實際底圖的座標系不一致，熱力圖/店鋪標記就會整體偏移，見 pickTiles() 註解。
+    await pickTiles();   // 依實際可達性挑選底圖源
     map.fitBounds(L.latLngBounds(App.config.MACAU_BOUNDS[0], App.config.MACAU_BOUNDS[1]));
     map.on('click', () => {
       App.layers.hideLayerPop();
