@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "entries": [
+    {
+      "seed": "axwz|2026-08-07|0|pin:chroma=muted,hue=blue",
+      "output": {
+        "seed": "axwz|2026-08-07|0|pin:chroma=muted,hue=blue",
+        "project": "axwz",
+        "date": "2026-08-07",
+        "reroll": 0,
+        "candidates": 5,
+        "pins": {
+          "hue": "blue",
+          "chroma": "muted"
+        },
+        "baseHue": 108.41,
+        "goldenAngle": 137.50776405003785,
+        "constraintTier": 1,
+        "cellSpace": {
+          "families": 12,
+          "disciplines": 9,
+          "cells": 108,
+          "banned": 6,
+          "excluded": 0,
+          "available": 102
+        },
+        "hands": [
+          {
+            "index": 1,
+            "family": {
+              "id": "swiss-international",
+              "name": "Swiss / International"
+            },
+            "composition": {
+              "id": "poster-bleed",
+              "name": "Poster Bleed",
+              "variance": 8,
+              "scale": "one full-bleed image or letterform at viewport scale",
+              "density": "minimal copy pinned to edges and corners",
+              "symmetry": "edge-anchored, center deliberately vacant or occupied by the bleed",
+              "hierarchy": "the bleed is the message; text is caption-rank",
+              "ground": "the bleed IS the ground",
+              "dominantElement": "the full-bleed image/letterform"
+            },
+            "hue": {
+              "deg": 233.5,
+              "name": "blue",
+              "paletteCommand": "node scripts/palette.mjs --seed 233.5 --chroma muted --harmony mono"
+            },
+            "signature": {
+              "id": "exposed-grid",
+              "text": "The layout grid becomes visible at exactly one moment (hover, load, or footer)"
+            }
+          },
+          {
+            "index": 2,
+            "family": {
+              "id": "cinematic-dark",
+              "name": "Cinematic Dark"
+            },
+            "composition": {
+              "id": "split-stage",
+              "name": "Split Stage",
+              "variance": 6,
+              "scale": "two panes at unequal scale",
+              "density": "unbalanced by design — one pane packed, one calm",
+              "symmetry": "hard asymmetric vertical split (e.g. 38/62)",
+              "hierarchy": "the heavier pane leads; the split line is structural",
+              "ground": "two grounds in tension (tone, texture, or value)",
+              "dominantElement": "the heavier pane"
+            },
+            "hue": {
+              "deg": 240.5,
+              "name": "blue",
+              "paletteCommand": "node scripts/palette.mjs --seed 240.5 --chroma muted --harmony mono"
+            },
+            "signature": {
+              "id": "baseline-ruler",
+              "text": "A visible baseline ruler runs down one edge and content demonstrably sits on it"
+            }
+          },
+          {
+            "index": 3,
+            "family": {
+              "id": "playful-geometric",
+              "name": "Playful Geometric"
+            },
+            "composition": {
+              "id": "swiss-modular",
+              "name": "Swiss Modular",
+              "variance": 3,
+              "scale": "modest, ratio-locked jumps",
+              "density": "moderate, grid-metered",
+              "symmetry": "grid-aligned, flush-left rag-right",
+              "hierarchy": "size + weight strictly on the module grid",
+              "ground": "white with hairline dividers, no containers",
+              "dominantElement": "the typographic headline seated on the grid"
+            },
+            "hue": {
+              "deg": 247.5,
+              "name": "blue",
+              "paletteCommand": "node scripts/palette.mjs --seed 247.5 --chroma muted --harmony mono"
+            },
+            "signature": {
+              "id": "duotone-images",
+              "text": "All imagery is a strict duotone built from the two palette anchors"
+            }
+          },
+          {
+            "index": 4,
+            "family": {
+              "id": "data-dense-professional",
+              "name": "Data-Dense Professional"
+            },
+            "composition": {
+              "id": "editorial-spread",
+              "name": "Editorial Spread",
+              "variance": 7,
+              "scale": "oversized display type against modest body columns",
+              "density": "varied — columns, pull elements, deliberate gaps",
+              "symmetry": "magazine asymmetry; elements cross column boundaries",
+              "hierarchy": "display type first, decks and pulls second, body third",
+              "ground": "multi-column page the display type violates on purpose",
+              "dominantElement": "the display typography"
+            },
+            "hue": {
+              "deg": 254.5,
+              "name": "blue",
+              "paletteCommand": "node scripts/palette.mjs --seed 254.5 --chroma muted --harmony mono"
+            },
+            "signature": {
+              "id": "border-interrupt-headings",
+              "text": "Headings interrupt their top border like a legend on a map frame"
+            }
+          },
+          {
+            "index": 5,
+            "family": {
+              "id": "retro-futurist",
+              "name": "Retro-Futurist"
+            },
+            "composition": {
+              "id": "marginalia",
+              "name": "Marginalia",
+              "variance": 5,
+              "scale": "steady text column, small margin apparatus",
+              "density": "dense column beside an airy margin",
+              "symmetry": "asymmetric two-track: column + active margin",
+              "hierarchy": "main column leads; margin annotates and cross-references",
+              "ground": "book page — the margin is working space, not padding",
+              "dominantElement": "the primary text column"
+            },
+            "hue": {
+              "deg": 261.5,
+              "name": "blue",
+              "paletteCommand": "node scripts/palette.mjs --seed 261.5 --chroma muted --harmony mono"
+            },
+            "signature": {
+              "id": "box-drawing-borders",
+              "text": "Tables and rules use box-drawing characters as borders"
+            }
+          }
+        ],
+        "contract": "The model justifies and executes this dealt hand — it does not re-choose. Rejected hand: re-deal with --reroll N+1; both deals stay recorded in used-dna.json. Pinned axes are user law — dealt around, never re-chosen."
+      }
+    }
+  ]
+}

@@ -74,8 +74,8 @@
 
   function rebuildOverlays() {
     Object.values(S.heat).forEach(h => { S.map.removeLayer(h.glow); S.map.removeLayer(h.core); });
-    Object.values(S.foodMarks).forEach(m => S.map.removeLayer(m));
-    S.heat = {}; S.foodMarks = {};
+    if (S.foodCluster) S.map.removeLayer(S.foodCluster);   // 標記活在分群群組裡，整組移除，不逐一 removeLayer
+    S.heat = {}; S.foodMarks = {}; S.foodCluster = null;
     if (S.meMarker) { S.map.removeLayer(S.meMarker); S.meMarker = null; }
     App.layers.buildHeat(); App.layers.buildFood(); App.layers.refreshHeat();
     if (S.userLoc) placeMe(S.userLoc);

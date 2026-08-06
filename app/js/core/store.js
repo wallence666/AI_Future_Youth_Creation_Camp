@@ -10,6 +10,7 @@
     spots: [], foods: [], events: [],
     heat: {},            // spotId -> {glow, core}
     foodMarks: {},       // foodId -> marker（入駐店舖以 shop_<id> 為鍵）
+    foodCluster: null,   // L.markerClusterGroup — 密集商家標記分群，見 map/layers.js
     layerMode: 'both',
     filters: { near: false, cuisine: null, tag: null, price: null },
     userLoc: null, meMarker: null, pendingNear: false,

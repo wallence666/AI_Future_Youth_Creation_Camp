@@ -1,0 +1,331 @@
+{
+  "detector": "detect.mjs",
+  "version": 1,
+  "attribution": "Rule subset ported from Impeccable (pbakaus/impeccable), Apache-2.0, with modifications — see file header. Catalog: references/visual/ai-tells.md.",
+  "status": "ran",
+  "sources": [
+    "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html"
+  ],
+  "rules": 16,
+  "findings": [
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<header class=\"topbar\"> is a card inside a card ancestor",
+      "line": 296
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"searchbox\"> is a card inside a card ancestor",
+      "line": 299
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"user-btn\"> is a card inside a card ancestor",
+      "line": 300
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 303
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 304
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 305
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 306
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 307
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 308
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 309
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 310
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 311
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 312
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<span class=\"map-label\"> is a card inside a card ancestor",
+      "line": 317
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"fab\"> is a card inside a card ancestor",
+      "line": 362
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"fab\"> is a card inside a card ancestor",
+      "line": 363
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"fab\"> is a card inside a card ancestor",
+      "line": 364
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"legend\"> is a card inside a card ancestor",
+      "line": 367
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"city-pill\"> is a card inside a card ancestor",
+      "line": 376
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<header class=\"topbar\"> is a card inside a card ancestor",
+      "line": 390
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"searchbox\"> is a card inside a card ancestor",
+      "line": 393
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"user-btn\"> is a card inside a card ancestor",
+      "line": 394
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 397
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 398
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"chip\"> is a card inside a card ancestor",
+      "line": 399
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<span class=\"map-label\"> is a card inside a card ancestor",
+      "line": 404
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<section class=\"drawer\"> is a card inside a card ancestor",
+      "line": 412
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"drawer-close\"> is a card inside a card ancestor",
+      "line": 414
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<span class=\"band-badge\"> is a card inside a card ancestor",
+      "line": 421
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"fc-chip\"> is a card inside a card ancestor",
+      "line": 430
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"fc-chip\"> is a card inside a card ancestor",
+      "line": 431
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"fc-chip\"> is a card inside a card ancestor",
+      "line": 432
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"chart-ph\"> is a card inside a card ancestor",
+      "line": 437
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<div class=\"best-box\"> is a card inside a card ancestor",
+      "line": 440
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"qbtn primary\"> is a card inside a card ancestor",
+      "line": 452
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"qbtn\"> is a card inside a card ancestor",
+      "line": 453
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"qbtn\"> is a card inside a card ancestor",
+      "line": 454
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "nested-cards",
+      "category": "layout",
+      "severity": "high",
+      "evidence": "<button class=\"qbtn\"> is a card inside a card ancestor",
+      "line": 455
+    },
+    {
+      "source": "/Users/hioinchan/Documents/GitHub/AI_Future_Youth_Creation_Camp/mocks/map-home-and-spot-drawer.html",
+      "rule": "em-dash-overuse",
+      "category": "copy",
+      "severity": "medium",
+      "evidence": "7 em-dashes in body copy",
+      "line": null
+    }
+  ],
+  "counts": {
+    "total": 39,
+    "byRule": {
+      "nested-cards": 38,
+      "em-dash-overuse": 1
+    }
+  }
+}

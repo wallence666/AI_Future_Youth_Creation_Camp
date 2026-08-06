@@ -8,14 +8,15 @@
  */
 'use strict';
 
-const VERSION = 'v1.0.4-20260806e';
+const VERSION = 'v1.1.1-20260807b';
 const STATIC_CACHE = 'axwz-static-' + VERSION;
 const DATA_CACHE = 'axwz-data-' + VERSION;
 
 const PRECACHE = [
   '/app/', '/app/index.html', '/app/merchant.html', '/app/admin.html', '/app/manifest.webmanifest',
-  '/app/css/app.css',
+  '/app/css/app.css', '/app/css/app-v2.css',
   '/app/vendor/leaflet.css', '/app/vendor/leaflet.js', '/app/vendor/qr.js',
+  '/app/vendor/leaflet.markercluster.js', '/app/vendor/MarkerCluster.css', '/app/vendor/MarkerCluster.Default.css',
   '/app/js/core/config.js', '/app/js/core/api.js', '/app/js/core/store.js', '/app/js/core/pwa.js',
   '/app/js/map/geo.js', '/app/js/map/basemap.js', '/app/js/map/layers.js',
   '/app/js/model/model.js', '/app/js/model/blend.js',
