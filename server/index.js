@@ -7,6 +7,20 @@ require('./db'); // 初始化 DB + seed
 const app = express();
 app.use(express.json({ limit: '1mb' }));
 
+// ---------- CORS（允許 Vercel 前端及本地開發跨域存取）----------
+const ALLOWED = [/\.vercel\.app$/, /localhost/];
+app.use((req, res, next) => {
+  const origin = req.headers.origin || '';
+  if (ALLOWED.some(r => r.test(origin))) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE,OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  if (req.method === 'OPTIONS') return res.sendStatus(204);
+  next();
+});
+
 // ---------- API ----------
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/me', require('./routes/me'));

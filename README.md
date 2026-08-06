@@ -1,5 +1,9 @@
 # 澳行無阻 · MACAU ROAM FREE
 
+> **在線演示**：https://axwz-server-iw5k.onrender.com/app/
+>
+> 團隊介紹頁：https://axwz-server-iw5k.onrender.com/
+
 此作品為灣區 AI 未來青年創造營 作品﹐為參賽作品︰
 
 小队成員如下︰
@@ -25,8 +29,8 @@
 ## 快速開始
 
 ```bash
-# 需要 Node.js ≥ 20（使用內建 node:sqlite，零原生依賴）
-node server/index.js          # 默認 8000 端口；PORT=8001 可改
+# 需要 Node.js ≥ 22.5（使用內建 node:sqlite，零原生依賴）
+cd server && npm install && npm start   # 默認 8000 端口；PORT=8001 可改
 
 # 瀏覽器打開（建議手機模式）
 # 應用本體   http://localhost:8000/app/

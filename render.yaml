@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: axwz-server
+    runtime: node
+    region: singapore
+    plan: free
+    buildCommand: cd server && npm install
+    startCommand: cd server && node --experimental-sqlite index.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: PORT
+        value: 10000

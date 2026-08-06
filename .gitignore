@@ -1,3 +1,18 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# 資料庫與上傳檔（不進入版本控制）
+server/data/app.db
+server/data/app.db-shm
+server/data/app.db-wal
+server/data/uploads/
+
+# 環境變量
+.env
+.env.*
+!.env.example
